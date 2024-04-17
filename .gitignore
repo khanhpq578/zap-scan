@@ -1,3 +1,5 @@
 *.html
 *.conf
 zs_*
+openapi.json
+*_openapi.json
