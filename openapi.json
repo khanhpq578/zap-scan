@@ -1,0 +1,1366 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/images": {
+            "post": {
+                "operationId": "ImageController_createPostStore",
+                "summary": "Create images",
+                "description": "\n    Page image: - (design not available)\n",
+                "parameters": [],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ImageResponseDto" } } } } },
+                "tags": ["images"]
+            }
+        },
+        "/stores": {
+            "get": {
+                "operationId": "StoreController_findAll",
+                "summary": "Get store list",
+                "description": "\n    Page used: Store (店舗情報)\n",
+                "parameters": [
+                    { "name": "skip", "required": false, "in": "query", "schema": { "default": 0, "type": "number" } },
+                    { "name": "take", "required": false, "in": "query", "schema": { "default": 10, "type": "number" } },
+                    { "name": "action", "required": false, "in": "query", "schema": { "default": "list", "enum": ["list", "csv"], "type": "string" } },
+                    { "name": "storeName", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "companyName", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "area", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "industry", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "brands", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "groups", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "categories", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "status", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "keyword", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "page", "required": false, "in": "query", "schema": { "type": "number" } },
+                    { "name": "pageSize", "required": false, "in": "query", "schema": { "type": "number" } },
+                    { "name": "orderBy", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "orderType", "required": false, "in": "query", "schema": { "type": "string" } }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetStoreListResponseDto" } } } } },
+                "tags": ["stores"],
+                "security": [{ "bearer": [] }]
+            },
+            "put": {
+                "operationId": "StoreController_updateBulkStores",
+                "summary": "Update bulk stores",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateStoreToGBPResponseDto" } } } } },
+                "tags": ["stores"],
+                "security": [{ "bearer": [] }]
+            },
+            "post": {
+                "operationId": "StoreController_create",
+                "summary": "Create a new store",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateStoreDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateStoreResponseDto" } } } } },
+                "tags": ["stores"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/stores/{id}": {
+            "get": {
+                "operationId": "StoreController_getStoreDetails",
+                "summary": "Get store details",
+                "description": "\n    Page used: Store detail (店舗情報 | や台ずし 下関駅前町)\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetStoreDetailResponse" } } } } },
+                "tags": ["stores"],
+                "security": [{ "bearer": [] }]
+            },
+            "put": {
+                "operationId": "StoreController_updateAStore",
+                "summary": "Update store details by id ",
+                "description": "\n    Page used: Store detail (店舗情報 | や台ずし 下関駅前町)\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateStoreToGBPResponseDto" } } } } },
+                "tags": ["stores"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/stores/google-business-profile": {
+            "post": {
+                "operationId": "StoreController_createStoresByGBP",
+                "summary": "Create new stores and gbp info",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateStoresByGBPDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateStoreResponseDto" } } } } },
+                "tags": ["stores"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/stores/{id}/google-business-profile": {
+            "get": {
+                "operationId": "StoreGbpController_getGoogleBusinessProfile",
+                "summary": "Get store's GBP information",
+                "description": "\n    Page used: Store information > GBP tab\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetGoogleBusinessProfileResponseDto" } } } } },
+                "tags": ["stores/GBP"],
+                "security": [{ "bearer": [] }]
+            },
+            "post": {
+                "operationId": "StoreGbpController_linkGoogleBusinessProfile",
+                "summary": "Link the store's GBP information",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkGoogleBusinessProfileRequestDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkGoogleBusinessProfileResponseDto" } } } } },
+                "tags": ["stores/GBP"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/stores/{id}/facebook": {
+            "get": {
+                "operationId": "StoreFacebookController_getFbAccount",
+                "summary": "Get store's facebook page information",
+                "description": "\n    Page used: Store information > Facebook tab\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetFacebookResponseDto" } } } } },
+                "tags": ["stores/Facebook"]
+            },
+            "post": {
+                "operationId": "StoreFacebookController_mappingFbAccount",
+                "summary": "Link the store's facebook page",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkFacebookRequestDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkFacebookResponseDto" } } } } },
+                "tags": ["stores/Facebook"]
+            },
+            "put": {
+                "operationId": "StoreFacebookController_updateFbProfile",
+                "summary": "Enqueue the operation to update the store's facebook page",
+                "description": "\n    Page used: Store information > Facebook tab\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProfileFacebookDto" } } } },
+                "responses": { "200": { "description": "Update operation enqueued", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateFacebookResponseDto" } } } } },
+                "tags": ["stores/Facebook"]
+            }
+        },
+        "/stores/{id}/instagram": {
+            "get": {
+                "operationId": "StoreInstagramController_getInstagram",
+                "summary": "Get store's Instagram page information",
+                "description": "\n    Page used: Store information > Instagram tab\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetInstagramResponseDto" } } } } },
+                "tags": ["stores/Instagram"]
+            },
+            "post": {
+                "operationId": "StoreInstagramController_linkInstagram",
+                "summary": "Link the store's Instagram page",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkInstagramRequestDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkInstagramResponseDto" } } } } },
+                "tags": ["stores/Instagram"]
+            },
+            "put": {
+                "operationId": "StoreInstagramController_updateInstagram",
+                "summary": "Enqueue the operation to update the store's Instagram page",
+                "description": "\n    Page used: Store information > Instagram tab\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GbpInfo" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateInstagramResponseDto" } } } } },
+                "tags": ["stores/Instagram"]
+            },
+            "delete": {
+                "operationId": "StoreInstagramController_deleteInstagram",
+                "summary": "Enqueue the operation to update the store's Instagram page",
+                "description": "\n    Page used: Store information > Instagram tab\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateInstagramResponseDto" } } } } },
+                "tags": ["stores/Instagram"]
+            }
+        },
+        "/stores/{id}/instagram2": {
+            "post": {
+                "operationId": "StoreInstagramController_linkInstagram2",
+                "summary": "Link the store's Instagram page",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkInstagramRequestDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkInstagramResponseDto" } } } } },
+                "tags": ["stores/Instagram"]
+            }
+        },
+        "/stores/{id}/x-profile": {
+            "get": {
+                "operationId": "StoreXController_getXProfile",
+                "summary": "Get store's X page information",
+                "description": "\n    Page used: Store information > X tab\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetXResponseDto" } } } } },
+                "tags": ["stores/X"]
+            },
+            "post": {
+                "operationId": "StoreXController_linkXProfile",
+                "summary": "Link the store's X page",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkXRequestDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkXResponseDto" } } } } },
+                "tags": ["stores/X"]
+            },
+            "put": {
+                "operationId": "StoreXController_updateXProfile",
+                "summary": "Enqueue the operation to update the store's X page",
+                "description": "\n    Page used: Store information > X tab\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GbpInfo" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateXResponseDto" } } } } },
+                "tags": ["stores/X"]
+            }
+        },
+        "/posts": {
+            "post": {
+                "operationId": "PostController_createPostStore",
+                "summary": "Create a post of store",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PostStoreDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LinkFacebookResponseDto" } } } } },
+                "tags": ["posts"]
+            },
+            "get": {
+                "operationId": "PostController_findAll",
+                "summary": "Get post of store list",
+                "description": "\n    Page used: Store's Post (店舗情報)\n",
+                "parameters": [
+                    { "name": "skip", "required": false, "in": "query", "schema": { "default": 0, "type": "number" } },
+                    { "name": "take", "required": false, "in": "query", "schema": { "default": 10, "type": "number" } },
+                    { "name": "action", "required": false, "in": "query", "schema": { "default": "list", "enum": ["list", "csv"], "type": "string" } },
+                    { "name": "storeName", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "companyName", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "area", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "industry", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "brand", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "customGroup", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "status", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "period", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "postType", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "postStatus", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "keyword", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "page", "required": false, "in": "query", "schema": { "type": "number" } },
+                    { "name": "pageSize", "required": false, "in": "query", "schema": { "type": "number" } },
+                    { "name": "orderBy", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "orderType", "required": false, "in": "query", "schema": { "type": "string" } }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetStoreListResponseDto" } } } } },
+                "tags": ["posts"]
+            },
+            "delete": {
+                "operationId": "PostController_delete",
+                "summary": "Delete posts of store",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetStoreListResponseDto" } } } } },
+                "tags": ["posts"]
+            }
+        },
+        "/posts/{id}": {
+            "get": {
+                "operationId": "PostController_getStoreDetails",
+                "summary": "Get store details",
+                "description": "\n    Page used: Store detail (店舗情報 | や台ずし 下関駅前町)\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetPostDetailResponse" } } } } },
+                "tags": ["posts"]
+            }
+        },
+        "/posts/{postId}": {
+            "put": {
+                "operationId": "PostController_update",
+                "summary": "update a post of store",
+                "description": "\n    Page used: - (design not available)\n",
+                "parameters": [{ "name": "postId", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PostStoreDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetStoreListResponseDto" } } } } },
+                "tags": ["posts"]
+            }
+        },
+        "/posts/check-status/cron": { "get": { "operationId": "PostController_checkStatusPostCron", "parameters": [], "responses": { "200": { "description": "" } }, "tags": ["posts"] } },
+        "/review/template": {
+            "post": {
+                "operationId": "ReviewController_createTemplate",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateTemplateReviewDto" } } } },
+                "responses": { "201": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            },
+            "get": {
+                "operationId": "ReviewController_getTemplates",
+                "parameters": [
+                    { "name": "skip", "required": false, "in": "query", "schema": { "default": 0, "type": "number" } },
+                    { "name": "take", "required": false, "in": "query", "schema": { "default": 10, "type": "number" } }
+                ],
+                "responses": { "200": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            },
+            "delete": {
+                "operationId": "ReviewController_deleteTemplateReview",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DeleteTemplateReviewDto" } } } },
+                "responses": { "200": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/review/template/{id}": {
+            "get": {
+                "operationId": "ReviewController_getTemplate",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }],
+                "responses": { "200": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            },
+            "patch": {
+                "operationId": "ReviewController_updateTemplate",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateTemplateReviewDto" } } } },
+                "responses": { "200": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/review/gbp": {
+            "get": {
+                "operationId": "ReviewController_getReviews",
+                "parameters": [
+                    { "name": "skip", "required": false, "in": "query", "schema": { "default": 0, "type": "number" } },
+                    { "name": "take", "required": false, "in": "query", "schema": { "default": 10, "type": "number" } },
+                    { "name": "action", "required": false, "in": "query", "schema": { "default": "list", "enum": ["list", "csv"], "type": "string" } },
+                    { "name": "storeName", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "brand", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "customGroupId", "required": false, "in": "query", "schema": { "type": "number" } },
+                    {
+                        "name": "businessType",
+                        "required": false,
+                        "in": "query",
+                        "description": "Business type of the store",
+                        "schema": { "enum": ["BUSINESS_TYPE_UNSPECIFIED", "CUSTOMER_LOCATION_ONLY", "CUSTOMER_AND_BUSINESS_LOCATION"], "type": "string" }
+                    },
+                    { "name": "categoryId", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "area", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "keyword", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "startDate", "required": false, "in": "query", "schema": { "format": "date-time", "type": "string" } },
+                    { "name": "endDate", "required": false, "in": "query", "schema": { "format": "date-time", "type": "string" } },
+                    { "name": "orderBy", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "orderType", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "replyStatus", "required": true, "in": "query", "schema": { "enum": ["reply", "notReply", "deleted"], "type": "string" } },
+                    { "name": "rating", "required": false, "in": "query", "schema": { "enum": ["ONE", "TWO", "THREE", "FOUR", "FIVE"], "type": "string" } },
+                    { "name": "isComment", "required": false, "in": "query", "schema": { "type": "string" } }
+                ],
+                "responses": { "200": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/review/gbp/cron": { "get": { "operationId": "ReviewController_saveReviewsMonthlyCron", "parameters": [], "responses": { "200": { "description": "" } }, "tags": ["reviews"], "security": [{ "bearer": [] }] } },
+        "/review/gbp/reply": {
+            "post": {
+                "operationId": "ReviewController_createReviewReply",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateReviewsReplyDto" } } } },
+                "responses": { "201": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/review/gbp/{id}/reply": {
+            "put": {
+                "operationId": "ReviewController_updateReview",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateReviewDto" } } } },
+                "responses": { "200": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            },
+            "delete": {
+                "operationId": "ReviewController_deleteReview",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }],
+                "responses": { "200": { "description": "" } },
+                "tags": ["reviews"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/performance/gbp": {
+            "get": {
+                "operationId": "PerformanceController_findAll",
+                "summary": "Get store's performance information for graphs",
+                "description": "\n    Page used: Performance\n",
+                "parameters": [
+                    { "name": "action", "required": true, "in": "query", "schema": { "default": "list", "enum": ["list", "csv", "chart"], "type": "string" } },
+                    { "name": "storeName", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "area", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "brand", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "customGroupId", "required": false, "in": "query", "schema": { "type": "number" } },
+                    {
+                        "name": "dailyMetrics",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "DAILY_METRIC_UNKNOWN",
+                                    "BUSINESS_IMPRESSIONS_DESKTOP_MAPS",
+                                    "BUSINESS_IMPRESSIONS_DESKTOP_SEARCH",
+                                    "BUSINESS_IMPRESSIONS_MOBILE_MAPS",
+                                    "BUSINESS_IMPRESSIONS_MOBILE_SEARCH",
+                                    "BUSINESS_CONVERSATIONS",
+                                    "BUSINESS_DIRECTION_REQUESTS",
+                                    "CALL_CLICKS",
+                                    "WEBSITE_CLICKS",
+                                    "BUSINESS_BOOKINGS",
+                                    "BUSINESS_FOOD_ORDERS",
+                                    "BUSINESS_FOOD_MENU_CLICKS"
+                                ]
+                            }
+                        }
+                    },
+                    { "name": "startDate", "required": false, "in": "query", "schema": { "format": "date-time", "type": "string" } },
+                    { "name": "endDate", "required": false, "in": "query", "schema": { "format": "date-time", "type": "string" } }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetPerformanceResponseDto" } } } } },
+                "tags": ["performance"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/performance/performance/cron": { "get": { "operationId": "PerformanceController_fetchPerformanceUpdate", "parameters": [], "responses": { "200": { "description": "" } }, "tags": ["performance"], "security": [{ "bearer": [] }] } },
+        "/categories": {
+            "get": {
+                "operationId": "CategoryController_findAll",
+                "summary": "Get list of category",
+                "description": "\n      Page used: TOP\n  ",
+                "parameters": [
+                    { "name": "skip", "required": false, "in": "query", "schema": { "default": 0, "type": "number" } },
+                    { "name": "take", "required": false, "in": "query", "schema": { "default": 10, "type": "number" } },
+                    { "name": "keyword", "required": false, "in": "query", "schema": { "type": "string" } }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ListCategoryResponseDto" } } } } },
+                "tags": ["categories"]
+            }
+        },
+        "/groups": {
+            "get": {
+                "operationId": "GroupController_findAll",
+                "summary": "Get list of group",
+                "description": "\n      Page used: Group\n  ",
+                "parameters": [
+                    { "name": "skip", "required": false, "in": "query", "schema": { "default": 0, "type": "number" } },
+                    { "name": "take", "required": false, "in": "query", "schema": { "default": 10, "type": "number" } },
+                    { "name": "keyword", "required": false, "in": "query", "schema": { "type": "string" } }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ListGroupResponseDto" } } } } },
+                "tags": ["groups"]
+            },
+            "post": {
+                "operationId": "GroupController_create",
+                "summary": "Create new group",
+                "description": "\n    Page used: Group\n",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateGroupDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateGroupResponseDto" } } } } },
+                "tags": ["groups"]
+            },
+            "delete": {
+                "operationId": "GroupController_delete",
+                "summary": "delete many group by ID array",
+                "description": "\n    Page used: Group\n",
+                "parameters": [],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateGroupResponseDto" } } } } },
+                "tags": ["groups"]
+            }
+        },
+        "/groups/{id}": {
+            "get": {
+                "operationId": "GroupController_details",
+                "summary": "Get group details",
+                "description": "\n    Page used: Group\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetGroupDetailResponse" } } } } },
+                "tags": ["groups"]
+            },
+            "put": {
+                "operationId": "GroupController_update",
+                "summary": "update a group by ID",
+                "description": "\n    Page used: Group\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateGroupDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateGroupResponseDto" } } } } },
+                "tags": ["groups"]
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "operationId": "AuthController_login",
+                "summary": "User login using email and password",
+                "parameters": [{ "name": "User-Agent", "required": true, "in": "header", "schema": { "type": "string" } }],
+                "requestBody": {
+                    "required": true,
+                    "description": "User login for the post body data",
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/LoginRequestDto" },
+                            "examples": {
+                                "empty": { "summary": "Custom user login example" },
+                                "superadmin": { "summary": "Superadmin login example", "value": { "email": "superadmin@yopmail.com", "password": "password357" } },
+                                "staff": { "summary": "Staff login example", "value": { "email": "staff@yopmail.com", "password": "password357" } },
+                                "manager": { "summary": "Manager login example", "value": { "email": "manager@yopmail.com", "password": "password357" } }
+                            }
+                        }
+                    }
+                },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponseResponse" } } } } },
+                "tags": ["auth"]
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "operationId": "AuthController_register",
+                "summary": "User register using email and password",
+                "parameters": [{ "name": "User-Agent", "required": true, "in": "header", "schema": { "type": "string" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RegisterRequestDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponseResponse" } } } } },
+                "tags": ["auth"]
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "operationId": "AuthController_refresh",
+                "summary": "Refresh token when token expired",
+                "parameters": [{ "name": "User-Agent", "required": true, "in": "header", "schema": { "type": "string" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RefreshTokenDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthRefreshTokenResponseResponse" } } } } },
+                "tags": ["auth"]
+            }
+        },
+        "/auth/seed": { "get": { "operationId": "AuthController_seedUser", "parameters": [], "responses": { "200": { "description": "" } }, "tags": ["auth"] } },
+        "/users": {
+            "get": {
+                "operationId": "UserController_getAllUser",
+                "summary": "Return list user",
+                "description": "\n    Page used: User list\n    ",
+                "parameters": [
+                    { "name": "skip", "required": false, "in": "query", "schema": { "default": 0, "type": "number" } },
+                    { "name": "take", "required": false, "in": "query", "schema": { "default": 10, "type": "number" } },
+                    { "name": "keyword", "required": false, "in": "query", "schema": { "type": "string" } }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetAllUserDtoResponse" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            },
+            "post": {
+                "operationId": "UserController_createUser",
+                "summary": "create a user account",
+                "description": "\n    Page used: User\n",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateUserDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateUserResponseDto" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            },
+            "delete": {
+                "operationId": "UserController_deletes",
+                "summary": "delete many users",
+                "description": "\n    Page used: user\n",
+                "parameters": [],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetUserDetailSchema" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/users/profile": {
+            "get": {
+                "operationId": "UserController_userProfile",
+                "summary": "Return user profile information",
+                "description": "\n    Page used: User profile\n    ",
+                "parameters": [],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetUserProfileResponseResponse" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            },
+            "put": {
+                "operationId": "UserController_userUpdateProfile",
+                "summary": "User update profile",
+                "description": "\n    Page used: User update profile\n",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateUserProfileDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateUserProfileResponse" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/users/exist": {
+            "get": {
+                "operationId": "UserController_checkUserDataExist",
+                "summary": "Return data is true if exist, false if not exist",
+                "description": "\n    Page used: Common\n",
+                "parameters": [{ "name": "email", "required": false, "in": "query", "schema": { "type": "string" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CheckUserDataExistResponse" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/users/change-password": {
+            "put": {
+                "operationId": "UserController_userChangePassword",
+                "summary": "User change password",
+                "description": "\n    Page used: User change password\n",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ChangePasswordDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ChangePasswordResponse" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "operationId": "UserController_details",
+                "summary": "Get user details",
+                "description": "\n    Page used: user\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetUserDetailSchema" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            },
+            "put": {
+                "operationId": "UserController_update",
+                "summary": "update a user by id",
+                "description": "\n    Page used: user\n",
+                "parameters": [{ "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateUserDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateUserResponseDto" } } } } },
+                "tags": ["users"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/notices": {
+            "post": {
+                "operationId": "NoticeController_create",
+                "summary": "Create new notice",
+                "description": "\n    Page used: TOP\n",
+                "parameters": [],
+                "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateNoticeDto" } } } },
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateNoticeResponseDto" } } } } },
+                "tags": ["notices"]
+            },
+            "get": {
+                "operationId": "NoticeController_findAll",
+                "summary": "Get list of notice",
+                "description": "\n    Page used: TOP\n",
+                "parameters": [],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetNoticeListResponseDto" } } } } },
+                "tags": ["notices"]
+            }
+        },
+        "/search-keyword/gbp": {
+            "get": {
+                "operationId": "SearchKeywordController_getGbpSearchKeywordChart",
+                "summary": "Get keywords of GBP",
+                "description": "Page used: - (design not available)",
+                "parameters": [
+                    { "name": "skip", "required": false, "in": "query", "schema": { "default": 0, "type": "number" } },
+                    { "name": "take", "required": false, "in": "query", "schema": { "default": 10, "type": "number" } },
+                    { "name": "action", "required": false, "in": "query", "schema": { "default": "list", "enum": ["list", "csv", "chart", "chart-compare"], "type": "string" } },
+                    { "name": "gbpIds", "required": false, "in": "query", "schema": { "type": "array", "items": { "type": "string" } } },
+                    { "name": "storeName", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "companyName", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "brand", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "customGroupId", "required": false, "in": "query", "schema": { "type": "number" } },
+                    {
+                        "name": "businessType",
+                        "required": false,
+                        "in": "query",
+                        "description": "Business type of the store",
+                        "schema": { "enum": ["BUSINESS_TYPE_UNSPECIFIED", "CUSTOMER_LOCATION_ONLY", "CUSTOMER_AND_BUSINESS_LOCATION"], "type": "string" }
+                    },
+                    { "name": "area", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "startDate", "required": false, "in": "query", "schema": { "format": "date-time", "type": "string" } },
+                    { "name": "endDate", "required": false, "in": "query", "schema": { "format": "date-time", "type": "string" } },
+                    { "name": "orderBy", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "orderType", "required": false, "in": "query", "schema": { "type": "string" } },
+                    { "name": "categoryId", "required": false, "in": "query", "schema": { "type": "number" } },
+                    { "name": "startDateCompare", "required": false, "in": "query", "schema": { "format": "date-time", "type": "string" } },
+                    { "name": "endDateCompare", "required": false, "in": "query", "schema": { "format": "date-time", "type": "string" } }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetSearchKeywordsTableResponse" } } } } },
+                "tags": ["search-keyword"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/search-keyword/gbp/{id}": {
+            "get": {
+                "operationId": "SearchKeywordController_getGbpSearchKeywordDetail",
+                "summary": "Get keyword detail of GBP",
+                "description": "Page used: - (design not available)",
+                "parameters": [
+                    { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } },
+                    { "name": "startDate", "required": true, "in": "query", "schema": { "format": "date-time", "type": "string" } },
+                    { "name": "endDate", "required": true, "in": "query", "schema": { "format": "date-time", "type": "string" } }
+                ],
+                "responses": { "200": { "description": "", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GetSearchKeywordDetailResponse" } } } } },
+                "tags": ["search-keyword"],
+                "security": [{ "bearer": [] }]
+            }
+        },
+        "/search-keyword/gbp/cron": { "get": { "operationId": "SearchKeywordController_saveSearchKeywordsMonthlyCron", "parameters": [], "responses": { "200": { "description": "" } }, "tags": ["search-keyword"], "security": [{ "bearer": [] }] } }
+    },
+    "info": { "title": "MrMeo", "description": "The MrMeo API description", "version": "1.0", "contact": {} },
+    "tags": [],
+    "servers": [{ "url": "https://api.test-internal-mrmeo.lisod.vn/v1", "description": "Test" }],
+    "components": {
+        "securitySchemes": { "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" } },
+        "schemas": {
+            "ImageType": { "type": "string", "enum": ["IMAGE", "VIDEO"] },
+            "Image": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "url": { "type": "string" },
+                    "type": { "$ref": "#/components/schemas/ImageType" },
+                    "postId": { "type": "number" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "url", "type", "createdAt", "updatedAt"]
+            },
+            "ImageResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/Image" }] }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "Store": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "storeLocationId": { "type": "string" },
+                    "storeName": { "type": "string" },
+                    "companyName": { "type": "string" },
+                    "postCode": { "type": "string" },
+                    "phone": { "type": "string" },
+                    "websiteUri": { "type": "string" },
+                    "brands": { "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "storeLocationId", "createdAt", "updatedAt"]
+            },
+            "GetStoreListResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/Store" } },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "GbpInfo": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "name": { "type": "string" },
+                    "storeCode": { "type": "string" },
+                    "title": { "type": "string" },
+                    "websiteUri": { "type": "string" },
+                    "regularHours": { "type": "object" },
+                    "specialHours": { "type": "object" },
+                    "labels": { "type": "string" },
+                    "primaryPhone": { "type": "string" },
+                    "additionalPhones": { "type": "object" },
+                    "profile": { "type": "string" },
+                    "dataHasBeenSynchronized": { "type": "boolean" },
+                    "storeId": { "type": "number" },
+                    "accountId": { "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "name", "storeCode", "profile", "dataHasBeenSynchronized", "storeId", "createdAt", "updatedAt"]
+            },
+            "InstagramInfo": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "storeId": { "type": "number" },
+                    "name": { "type": "string" },
+                    "username": { "type": "string" },
+                    "biography": { "type": "string" },
+                    "accountId": { "type": "string" },
+                    "profilePictureUrl": { "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "storeId", "name", "accountId", "createdAt", "updatedAt"]
+            },
+            "UserStore": {
+                "type": "object",
+                "properties": { "userId": { "type": "number" }, "storeId": { "type": "number" }, "roleId": { "type": "number" }, "assignedAt": { "format": "date-time", "type": "string" }, "assignedBy": { "type": "string" } },
+                "required": ["userId", "storeId", "roleId", "assignedAt", "assignedBy"]
+            },
+            "CustomGroupStore": { "type": "object", "properties": { "customGroupId": { "type": "number" }, "storeId": { "type": "number" } }, "required": ["customGroupId", "storeId"] },
+            "GetStoreDetailData": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "storeLocationId": { "type": "string" },
+                    "storeName": { "type": "string" },
+                    "companyName": { "type": "string" },
+                    "postCode": { "type": "string" },
+                    "phone": { "type": "string" },
+                    "websiteUri": { "type": "string" },
+                    "brands": { "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" },
+                    "GbpInfo": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/GbpInfo" }] },
+                    "InstagramInfo": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/InstagramInfo" }] },
+                    "users": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/UserStore" } },
+                    "customGroups": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/CustomGroupStore" } }
+                },
+                "required": ["id", "storeLocationId", "createdAt", "updatedAt", "GbpInfo", "InstagramInfo", "users", "customGroups"]
+            },
+            "GetStoreDetailResponse": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/GetStoreDetailData" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "UpdateStoreToGBPResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "type": "object", "readOnly": true },
+                    "message": { "type": "string", "readOnly": true },
+                    "error": { "type": "object", "readOnly": true },
+                    "count": { "type": "number", "readOnly": true }
+                },
+                "required": ["status", "data", "message", "error", "count"]
+            },
+            "CreateStoreDto": {
+                "type": "object",
+                "properties": {
+                    "storeLocationId": { "type": "string" },
+                    "businessType": { "type": "string", "enum": ["BUSINESS_TYPE_UNSPECIFIED", "CUSTOMER_LOCATION_ONLY", "CUSTOMER_AND_BUSINESS_LOCATION"] },
+                    "companyName": { "type": "string" },
+                    "postCode": { "type": "string" },
+                    "phone": { "type": "string" },
+                    "postingUrl": { "type": "string" }
+                },
+                "required": ["storeLocationId"]
+            },
+            "CreateStoreResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "type": "object", "readOnly": true },
+                    "message": { "type": "string", "readOnly": true },
+                    "count": { "type": "number", "readOnly": true }
+                },
+                "required": ["status", "data", "message", "count"]
+            },
+            "CreateStoresByGBPDto": { "type": "object", "properties": { "accessToken": { "type": "string" }, "authorizationCode": { "type": "string" } }, "required": ["accessToken", "authorizationCode"] },
+            "GetGoogleBusinessProfileResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/GbpInfo" }] }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "LinkGoogleBusinessProfileRequestDto": { "type": "object", "properties": { "storeId": { "type": "string" }, "credential": { "type": "object" } }, "required": ["storeId", "credential"] },
+            "LinkGoogleBusinessProfileResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "FacebookInfo": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "storeId": { "type": "number" },
+                    "email": { "type": "string" },
+                    "userId": { "type": "string" },
+                    "pageId": { "type": "string" },
+                    "pageName": { "type": "string" },
+                    "pageCategory": { "type": "string" },
+                    "pageCategoryList": { "type": "string" },
+                    "location": { "type": "object" },
+                    "description": { "type": "string" },
+                    "about": { "type": "string" },
+                    "hours": { "type": "object" },
+                    "phone": { "type": "string" },
+                    "website": { "type": "string" },
+                    "link": { "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "storeId", "createdAt", "updatedAt"]
+            },
+            "GetFacebookResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/FacebookInfo" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "LinkFacebookRequestDto": { "type": "object", "properties": { "userID": { "type": "string" }, "accessToken": { "type": "string" } }, "required": ["userID", "accessToken"] },
+            "LinkFacebookResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "ProfileFacebookDto": {
+                "type": "object",
+                "properties": {
+                    "location": { "type": "string" },
+                    "description": { "type": "string" },
+                    "about": { "type": "string" },
+                    "hours": { "type": "string" },
+                    "phone": { "type": "string" },
+                    "website": { "type": "string" },
+                    "link": { "type": "string" }
+                },
+                "required": ["location", "description", "about", "hours", "phone", "website", "link"]
+            },
+            "UpdateFacebookResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "GetInstagramResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/InstagramInfo" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "LinkInstagramRequestDto": { "type": "object", "properties": { "userID": { "type": "string" }, "accessToken": { "type": "string" }, "code": { "type": "string" } } },
+            "LinkInstagramResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "UpdateInstagramResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "XInfo": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "storeId": { "type": "number" },
+                    "name": { "type": "string" },
+                    "url": { "type": "string" },
+                    "location": { "type": "string" },
+                    "description": { "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "storeId", "createdAt", "updatedAt"]
+            },
+            "GetXResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/XInfo" }] }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "LinkXRequestDto": { "type": "object", "properties": { "storeId": { "type": "string" }, "credential": { "type": "object" } }, "required": ["storeId", "credential"] },
+            "LinkXResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "UpdateXResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "PostMethodStoreDto": {
+                "type": "object",
+                "properties": { "storeIds": { "type": "array", "items": { "type": "string" } }, "brandIds": { "type": "array", "items": { "type": "string" } }, "groupIds": { "type": "array", "items": { "type": "string" } } }
+            },
+            "DateDto": { "type": "object", "properties": { "year": { "type": "number" }, "month": { "type": "number" }, "day": { "type": "number" } } },
+            "TimeOfDayDto": { "type": "object", "properties": { "hours": { "type": "number" }, "minutes": { "type": "number" }, "seconds": { "type": "number" }, "nanos": { "type": "number" } } },
+            "CreateGbpScheduleDto": {
+                "type": "object",
+                "properties": {
+                    "startDate": { "$ref": "#/components/schemas/DateDto" },
+                    "endDate": { "$ref": "#/components/schemas/DateDto" },
+                    "startTime": { "$ref": "#/components/schemas/TimeOfDayDto" },
+                    "endTime": { "$ref": "#/components/schemas/TimeOfDayDto" }
+                }
+            },
+            "CreateGbpEventDto": { "type": "object", "properties": { "title": { "type": "string" }, "schedule": { "$ref": "#/components/schemas/CreateGbpScheduleDto" } } },
+            "CreateGbpCallToActionDto": { "type": "object", "properties": { "actionType": { "type": "string" }, "url": { "type": "string" } } },
+            "CreateGbpOfferDto": { "type": "object", "properties": { "couponCode": { "type": "string" }, "redeemOnlineUrl": { "type": "string" }, "termsConditions": { "type": "string" } } },
+            "PostStoreDto": {
+                "type": "object",
+                "properties": {
+                    "allStore": { "type": "boolean" },
+                    "postContent": { "type": "string" },
+                    "scheduledTime": { "type": "string" },
+                    "mediaUrl": { "type": "string" },
+                    "mediaType": { "type": "string" },
+                    "carousel": { "type": "array", "items": { "type": "string" } },
+                    "postMedium": { "type": "array", "items": { "type": "string" } },
+                    "postMethod": { "$ref": "#/components/schemas/PostMethodStoreDto" },
+                    "languageCode": { "type": "string" },
+                    "media": { "type": "object" },
+                    "topicType": { "type": "object" },
+                    "event": { "$ref": "#/components/schemas/CreateGbpEventDto" },
+                    "callToAction": { "$ref": "#/components/schemas/CreateGbpCallToActionDto" },
+                    "offer": { "$ref": "#/components/schemas/CreateGbpOfferDto" }
+                }
+            },
+            "GetPostDetailResponse": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "CreateTemplateReviewDto": { "type": "object", "properties": { "name": { "type": "string" }, "comment": { "type": "string" } }, "required": ["name", "comment"] },
+            "UpdateTemplateReviewDto": { "type": "object", "properties": { "name": { "type": "string" }, "comment": { "type": "string" } } },
+            "DeleteTemplateReviewDto": { "type": "object", "properties": { "ids": { "type": "array", "items": { "type": "string" } } }, "required": ["ids"] },
+            "CreateReviewsReplyDto": { "type": "object", "properties": { "replies": { "type": "array", "items": { "type": "string" } } }, "required": ["replies"] },
+            "UpdateReviewDto": { "type": "object", "properties": { "comment": { "type": "string" } }, "required": ["comment"] },
+            "GbpPerformanceDailyMetrics": {
+                "type": "string",
+                "enum": [
+                    "DAILY_METRIC_UNKNOWN",
+                    "BUSINESS_IMPRESSIONS_DESKTOP_MAPS",
+                    "BUSINESS_IMPRESSIONS_DESKTOP_SEARCH",
+                    "BUSINESS_IMPRESSIONS_MOBILE_MAPS",
+                    "BUSINESS_IMPRESSIONS_MOBILE_SEARCH",
+                    "BUSINESS_CONVERSATIONS",
+                    "BUSINESS_DIRECTION_REQUESTS",
+                    "CALL_CLICKS",
+                    "WEBSITE_CLICKS",
+                    "BUSINESS_BOOKINGS",
+                    "BUSINESS_FOOD_ORDERS",
+                    "BUSINESS_FOOD_MENU_CLICKS"
+                ]
+            },
+            "GbpPerformance": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "gbpId": { "type": "number" },
+                    "date": { "format": "date-time", "type": "string" },
+                    "value": { "type": "number" },
+                    "dailyMetrics": { "$ref": "#/components/schemas/GbpPerformanceDailyMetrics" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "gbpId", "date", "value", "dailyMetrics", "createdAt", "updatedAt"]
+            },
+            "GetPerformanceResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/GbpPerformance" } },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "ListCategoryResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "ListGroupResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "type": "object", "readOnly": true }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "UserGroup": {
+                "type": "object",
+                "properties": { "userId": { "type": "number" }, "groupId": { "type": "number" }, "createdAt": { "format": "date-time", "type": "string" }, "updatedAt": { "format": "date-time", "type": "string" } },
+                "required": ["userId", "groupId", "createdAt", "updatedAt"]
+            },
+            "GetGroupDetailData": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "name": { "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" },
+                    "stores": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/CustomGroupStore" } },
+                    "userGroup": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/UserGroup" } }
+                },
+                "required": ["id", "name", "createdAt", "updatedAt", "stores", "userGroup"]
+            },
+            "GetGroupDetailResponse": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/GetGroupDetailData" }] } },
+                "required": ["status", "data"]
+            },
+            "CreateGroupDto": { "type": "object", "properties": { "name": { "type": "string" }, "storeIDs": { "type": "array", "items": { "type": "string" } }, "userIDs": { "type": "array", "items": { "type": "string" } } }, "required": ["name"] },
+            "CustomGroup": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "name": { "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "name", "createdAt", "updatedAt"]
+            },
+            "CreateGroupResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/CustomGroup" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "UpdateGroupDto": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string" },
+                    "addStoreIDs": { "type": "array", "items": { "type": "string" } },
+                    "addUserIDs": { "type": "array", "items": { "type": "string" } },
+                    "removeStoreIDs": { "type": "array", "items": { "type": "string" } },
+                    "removeUserIDs": { "type": "array", "items": { "type": "string" } }
+                }
+            },
+            "LoginRequestDto": { "type": "object", "properties": { "email": { "type": "string" }, "password": { "type": "string" } }, "required": ["email", "password"] },
+            "Role": { "type": "string", "enum": ["ADMIN", "ACCOUNT_MANAGER", "GENERAL_MANAGER", "STAFF"] },
+            "Email": {
+                "type": "object",
+                "properties": {
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "email": { "type": "string" },
+                    "emailSafe": { "type": "string" },
+                    "id": { "type": "number" },
+                    "isVerified": { "type": "boolean" },
+                    "updatedAt": { "format": "date-time", "type": "string" },
+                    "userId": { "type": "number" },
+                    "emailVerifiedAt": { "format": "date-time", "type": "string" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "deletedFlg": { "type": "boolean" }
+                },
+                "required": ["createdAt", "email", "emailSafe", "id", "isVerified", "updatedAt", "userId", "deletedFlg"]
+            },
+            "UserProfileResponseData": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "password": { "type": "string", "readOnly": true, "deprecated": true },
+                    "name": { "type": "string" },
+                    "companyName": { "type": "string" },
+                    "role": { "$ref": "#/components/schemas/Role" },
+                    "deletedFlg": { "type": "boolean" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" },
+                    "prefersEmailId": { "type": "number" },
+                    "createBy": { "type": "number" },
+                    "hasPassword": { "type": "boolean", "readOnly": true },
+                    "prefersEmail": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/Email" }] },
+                    "emails": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/Email" } }
+                },
+                "required": ["id", "password", "name", "role", "deletedFlg", "createdAt", "updatedAt", "hasPassword", "prefersEmail", "emails"]
+            },
+            "AuthResponseData": {
+                "type": "object",
+                "properties": { "accessToken": { "type": "string", "readOnly": true }, "refreshToken": { "type": "string", "readOnly": true }, "user": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/UserProfileResponseData" }] } },
+                "required": ["accessToken", "refreshToken", "user"]
+            },
+            "AuthResponseResponse": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/AuthResponseData" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "RegisterRequestDto": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string" },
+                    "companyName": { "type": "string" },
+                    "email": { "type": "string" },
+                    "password": { "type": "string" },
+                    "passwordConfirmed": { "type": "string" },
+                    "role": { "type": "string", "enum": ["ADMIN", "ACCOUNT_MANAGER", "GENERAL_MANAGER", "STAFF"] }
+                },
+                "required": ["name", "companyName", "email", "password", "passwordConfirmed", "role"]
+            },
+            "RefreshTokenDto": { "type": "object", "properties": { "token": { "type": "string" } }, "required": ["token"] },
+            "TokenResponseData": { "type": "object", "properties": { "accessToken": { "type": "string", "readOnly": true }, "refreshToken": { "type": "string", "readOnly": true } }, "required": ["accessToken", "refreshToken"] },
+            "AuthRefreshTokenResponseResponse": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/TokenResponseData" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "GetAllUserDataResponse": {
+                "type": "object",
+                "properties": { "users": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/UserProfileResponseData" } }, "total": { "type": "number", "readOnly": true } },
+                "required": ["users", "total"]
+            },
+            "GetAllUserDtoResponse": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/GetAllUserDataResponse" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "GetUserProfileResponseResponse": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/UserProfileResponseData" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "CheckUserDataExist": { "type": "object", "properties": { "isExist": { "type": "boolean", "readOnly": true } }, "required": ["isExist"] },
+            "CheckUserDataExistResponse": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/CheckUserDataExist" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "CreateUserDto": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string" },
+                    "companyName": { "type": "string" },
+                    "email": { "type": "string" },
+                    "password": { "type": "string" },
+                    "passwordConfirmed": { "type": "string" },
+                    "role": { "type": "string", "enum": ["ADMIN", "ACCOUNT_MANAGER", "GENERAL_MANAGER", "STAFF"] }
+                },
+                "required": ["name", "companyName", "email", "password", "passwordConfirmed", "role"]
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "password": { "type": "string" },
+                    "name": { "type": "string" },
+                    "companyName": { "type": "string" },
+                    "role": { "$ref": "#/components/schemas/Role" },
+                    "deletedFlg": { "type": "boolean" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" },
+                    "prefersEmailId": { "type": "number" },
+                    "createBy": { "type": "number" }
+                },
+                "required": ["id", "password", "name", "role", "deletedFlg", "createdAt", "updatedAt"]
+            },
+            "CreateUserResponseDto": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/User" }] }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "ChangePasswordDto": { "type": "object", "properties": { "password": { "type": "string" }, "newPassword": { "type": "string" }, "passwordConfirm": { "type": "string" } }, "required": ["password", "newPassword", "passwordConfirm"] },
+            "ChangePasswordResponse": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/User" }] }, "message": { "type": "string", "readOnly": true } },
+                "required": ["status", "data", "message"]
+            },
+            "UpdateUserProfileDto": { "type": "object", "properties": { "companyName": { "type": "string" }, "name": { "type": "string" } } },
+            "UpdateUserProfileData": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "password": { "type": "string" },
+                    "name": { "type": "string" },
+                    "companyName": { "type": "string" },
+                    "role": { "$ref": "#/components/schemas/Role" },
+                    "deletedFlg": { "type": "boolean" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" },
+                    "prefersEmailId": { "type": "number" },
+                    "createBy": { "type": "number" },
+                    "prefersEmail": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/Email" }] }
+                },
+                "required": ["id", "password", "name", "role", "deletedFlg", "createdAt", "updatedAt", "prefersEmail"]
+            },
+            "UpdateUserProfileResponse": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/UpdateUserProfileData" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "GetUserDetailSchema": {
+                "type": "object",
+                "properties": { "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] }, "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/User" }] } },
+                "required": ["status", "data"]
+            },
+            "UpdateUserDto": {
+                "type": "object",
+                "properties": { "name": { "type": "string" }, "companyName": { "type": "string" }, "email": { "type": "string" }, "role": { "type": "string", "enum": ["ADMIN", "ACCOUNT_MANAGER", "GENERAL_MANAGER", "STAFF"] } }
+            },
+            "CreateNoticeDto": { "type": "object", "properties": { "title": { "type": "string" }, "content": { "type": "string" } }, "required": ["title"] },
+            "Notification": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "number" },
+                    "title": { "type": "string" },
+                    "content": { "type": "string" },
+                    "createdUserId": { "type": "number" },
+                    "deletedAt": { "format": "date-time", "type": "string" },
+                    "createdAt": { "format": "date-time", "type": "string" },
+                    "updatedAt": { "format": "date-time", "type": "string" }
+                },
+                "required": ["id", "title", "content", "createdAt", "updatedAt"]
+            },
+            "CreateNoticeResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "allOf": [{ "$ref": "#/components/schemas/Notification" }] },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "GetNoticeListResponseDto": {
+                "type": "object",
+                "properties": {
+                    "status": { "type": "string", "readOnly": true, "enum": ["success", "failed"] },
+                    "data": { "readOnly": true, "type": "array", "items": { "$ref": "#/components/schemas/Notification" } },
+                    "message": { "type": "string", "readOnly": true }
+                },
+                "required": ["status", "data", "message"]
+            },
+            "GetSearchKeywordsTableResponse": { "type": "object", "properties": {} },
+            "GetSearchKeywordDetailResponse": { "type": "object", "properties": {} }
+        }
+    }
+}
